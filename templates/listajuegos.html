@@ -7,7 +7,7 @@
       <h2 class="l-box-title"><span>Lista</span></h2>
     </div>
     <div class="l-box-body l-spaced">
-      <h2>JUEGOS MSX</h2>
+      <h2>JUEGOS MSX: {{ juego }}</h2>
       <div class="l-box-body l-spaced">
         <!-- FORMULARIO -->
         <form class="form-horizontal" method="POST" action="/listajuegos">
@@ -28,11 +28,13 @@
               </tr>
             </tfoot>
             <tbody>
-              <tr>
-                <td>Tiger Nixon</td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-              </tr>
+              {% for elem in lista_juegos -%}
+                <tr>
+                  <td>{{ elem['nombre'] }}</td>
+                  <td>{{ elem['desarrollador'] }}</td>
+                  <td><a class="btn btn-info" href="/juego/{{ elem['id'] }}">Detalles</a></td>
+                </tr>
+              {% endfor -%}
             </tbody>
           </table>
           <!-- FIN CONTENIDO TABLA -->

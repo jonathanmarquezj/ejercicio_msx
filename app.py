@@ -8,7 +8,7 @@ with open("MSX.json") as fichero:
 	lista_juegos_msx=json.load(fichero)
 
 #INICIO
-@app.route('/', methods=["GET", "POST"])
+@app.route('/', methods=["GET"])
 def inicio():
 	return render_template("inicio.html")
 
@@ -18,13 +18,16 @@ def juegos():
 	return render_template("juegos.html")
 
 #PARA LISTAR LOS JUEGOS ENCONTADOS
-@app.route('/listajuegos', methods=['GET', "POST"])
+@app.route('/listajuegos', methods=["GET", "POST"])
 def listajuegos():
-	if request.method == 'POST': #Si tiene POST
-		return render_template("listajuegos.html", lista_juegos_msx=lista_juegos_msx)
-	else: #En caso de que no tenga POST
-		abort(404)
+	if request.method == "POST":
+		juego=request.form['juego'] #Para guardar la busqueda en una variable
+		#Realiza la busqueda en el listado de los juegos.
+		busqueda=[obj for obj in lista_juegos_msx if(str(obj['nombre']).find(juego) == 0)]
 
+		return render_template("listajuegos.html", juego=juego, lista_juegos=busqueda)
+	else:
+		return render_template("listajuegos.html", juego="todo", lista_juegos=lista_juegos_msx)
 
 # Tienes que crear esta variable si no la tienes, en heroku no hace falta.
 # Ponemos en el terminal para poner el puerto en nustra maquina local el siguiente comando.
