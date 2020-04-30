@@ -32,7 +32,16 @@ function runDataTable(dataTableId,type,event){
             var table_2 = $(dataTableId).DataTable( {
                 "scrollY":        "200px",
                 "scrollCollapse": true,
-                "paging":         false
+                "paging":         false,
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "Juego no encontrado.",
+                    "info": "Mostrando la página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay registros disponibles.",
+                    "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                    "search": "Buscar",
+                    "info": "Mostrando desde _START_ hasta _END_"
+                }
             } );
 
             $('#vscrollTable').on('click',function(){
