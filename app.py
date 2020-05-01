@@ -3,7 +3,7 @@ from flask import Flask, render_template, abort, request
 import json
 
 app = Flask(__name__)
-
+'''
 with open("MSX.json") as fichero:
 	lista_juegos_msx=json.load(fichero)
 
@@ -11,13 +11,13 @@ with open("MSX.json") as fichero:
 @app.errorhandler(404)
 def page_not_found(error):
     return "<h1>ERROR: 404</h1><br/>página no encontrada <br/><br/><a href='/juegos'>Atras</a>"
-
+'''
 #INICIO
 @app.route('/', methods=["GET", "POST"])
 def inicio():
 	return render_template("index.html")
 
-
+'''
 #PARA BUSCAR JUEGOS
 @app.route('/juegos', methods=["GET", "POST"])
 @app.route('/juegos/<detalle>', methods=["GET", "POST"])
@@ -57,7 +57,7 @@ def juegos(detalle=None):
 
 		return render_template("juegos.html", juego=juego, lista_juegos=busqueda, estado="lista_juegos", categoria_select=categoria_select)
 
-
+'''
 
 # Tienes que crear esta variable si no la tienes, en heroku no hace falta.
 # Ponemos en el terminal para poner el puerto en nustra maquina local el siguiente comando.
