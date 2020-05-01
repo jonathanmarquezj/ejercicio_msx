@@ -24,14 +24,17 @@ def inicio():
 def juegos(detalle=None):
 	#PARA PASAR DE UNA PAGINA A OTRA
 	estado="juegos"
+	buscar=""
 	if request.method == "POST":
 		estado=request.form['estado']
+		buscar=request.form['buscador']
+
 	if estado == "juegos":
 		if detalle:
 			detalle=[obj for obj in lista_juegos_msx if(obj['id'] == int(detalle))]
 			if not detalle:
 				abort(404)
-		return render_template("juegos.html", detalle=detalle, estado=estado)
+		return render_template("juegos.html", detalle=detalle, estado=estado, buscar=buscar)
 	else:
 		juego=request.form['juego'] #Para guardar la busqueda en una variable
 		#Realiza la busqueda en el listado de los juegos.

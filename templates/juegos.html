@@ -14,6 +14,7 @@
           <!-- FORMULARIO -->
           <form class="form-horizontal" method="POST" action="/juegos">
             <input type="hidden" name="estado" id="estado" value="lista_juegos" />
+            <input type="hidden" name="buscador" id="buscador" value="" />
             {% if detalle %}
               <a href="/juegos" class="btn btn-dark">Buscar juego</a>
               <br/><br/>
@@ -28,7 +29,7 @@
               <div class="form-group">
                 <label for="basicText" class="col-sm-2 control-label">Buscador</label>
                 <div class="col-sm-8">
-                  <input id="basicText" name="juego" type="text" placeholder="Buscador ..." class="form-control">
+                  <input id="basicText" value="{{ buscar }}" name="juego" type="text" placeholder="Buscador ..." class="form-control">
                   <small>Escriba el nombre del juego.</small>
                 </div>
                 <div class="col-sm-2">
@@ -60,7 +61,9 @@
       <div class="l-box-body l-spaced">
         <!-- FORMULARIO -->
         <form class="form-horizontal" method="POST" action="/juegos">
-          <a href="/juegos" class="btn btn-dark">Atas</a>
+          <input type="hidden" name="buscador" id="buscador" value="{{ juego }}" />
+          <input type="hidden" name="estado" id="estado" value="juegos" />
+          <button type="submit" class="btn btn-dark">Atras</button>
           <!-- CONTENIDO TABLA -->
           <table id="dataTableIdVerticalScroll" cellspacing="0" width="100%" class="display">
             <thead>
