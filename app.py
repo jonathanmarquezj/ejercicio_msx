@@ -13,7 +13,7 @@ def page_not_found(error):
     return "<h1>ERROR: 404</h1><br/>página no encontrada <br/><br/><a href='/juegos'>Atras</a>"
 
 #INICIO
-@app.route('/', methods=["GET"])
+@app.route('/', methods=["GET", "POST"])
 def inicio():
 	return render_template("inicio.html")
 
