@@ -11,6 +11,7 @@
       <div class="l-box-body l-spaced">
         <!-- FORMULARIO -->
         <form class="form-horizontal" method="POST" action="/listajuegos">
+          <a href="/juegos" class="btn btn-dark">Atas</a>
           <!-- CONTENIDO TABLA -->
           <table id="dataTableIdVerticalScroll" cellspacing="0" width="100%" class="display">
             <thead>
@@ -32,7 +33,7 @@
                 <tr>
                   <td>{{ elem['nombre'] }}</td>
                   <td>{{ elem['desarrollador'] }}</td>
-                  <td><a class="btn btn-info" href="/juego/{{ elem['id'] }}">Detalles</a></td>
+                  <td><a class="btn btn-info" href="/juegos/{{ elem['id'] }}">Detalles</a></td>
                 </tr>
               {% endfor -%}
             </tbody>

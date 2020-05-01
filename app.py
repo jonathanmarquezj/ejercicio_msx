@@ -7,15 +7,27 @@ app = Flask(__name__)
 with open("MSX.json") as fichero:
 	lista_juegos_msx=json.load(fichero)
 
+#PARA PERSONALIZAR EL ERROR 404
+@app.errorhandler(404)
+def page_not_found(error):
+    return "<h1>ERROR: 404</h1><br/>página no encontrada <br/><br/><a href='/juegos'>Atras</a>"
+
 #INICIO
 @app.route('/', methods=["GET"])
 def inicio():
 	return render_template("inicio.html")
 
+
 #PARA BUSCAR JUEGOS
 @app.route('/juegos', methods=["GET", "POST"])
-def juegos():
-	return render_template("juegos.html")
+@app.route('/juegos/<detalle>', methods=["GET", "POST"])
+def juegos(detalle=None):
+	if detalle:
+		detalle=[obj for obj in lista_juegos_msx if(obj['id'] == int(detalle))]
+		if not detalle:
+			abort(404)
+	return render_template("juegos.html", detalle=detalle)
+
 
 #PARA LISTAR LOS JUEGOS ENCONTADOS
 @app.route('/listajuegos', methods=["GET", "POST"])
@@ -28,6 +40,7 @@ def listajuegos():
 		return render_template("listajuegos.html", juego=juego, lista_juegos=busqueda)
 	else:
 		return render_template("listajuegos.html", juego="todo", lista_juegos=lista_juegos_msx)
+
 
 # Tienes que crear esta variable si no la tienes, en heroku no hace falta.
 # Ponemos en el terminal para poner el puerto en nustra maquina local el siguiente comando.

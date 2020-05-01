@@ -12,18 +12,29 @@
         <div class="l-box-body l-spaced">
           <!-- FORMULARIO -->
           <form class="form-horizontal" method="POST" action="/listajuegos">
-
-            <div class="form-group">
-              <label for="basicText" class="col-sm-2 control-label">Buscador</label>
-              <div class="col-sm-8">
-                <input id="basicText" name="juego" type="text" placeholder="Buscador ..." class="form-control">
-                <small>Escriba el nombre del juego.</small>
+            {{ detalle }}
+            {% if detalle %}
+              <a href="/juegos" class="btn btn-dark">Buscar juego</a>
+              <br/><br/>
+              <ul>
+              {% for elem in detalle -%}
+                {% for key, value in elem.items() -%}
+                  <li><b>{{ key }}:</b> {{ value }}</li>
+                {% endfor -%}
+              {% endfor -%}
+            </ul>
+            {% else %}
+              <div class="form-group">
+                <label for="basicText" class="col-sm-2 control-label">Buscador</label>
+                <div class="col-sm-8">
+                  <input id="basicText" name="juego" type="text" placeholder="Buscador ..." class="form-control">
+                  <small>Escriba el nombre del juego.</small>
+                </div>
+                <div class="col-sm-2">
+                  <button type="submit" class="btn btn-dark">Buscar</button>
+                </div>
               </div>
-              <div class="col-sm-2">
-                <button type="submit" class="btn btn-dark">Buscar</button>
-              </div>
-            </div>
-            
+            {% endif -%}
           </form>
           <!-- FIN FORMULARIO -->
         </div>
