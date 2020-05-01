@@ -15,7 +15,7 @@ def page_not_found(error):
 #INICIO
 @app.route('/', methods=["GET", "POST"])
 def inicio():
-	return render_template("inicio.html")
+	return render_template("index.html")
 
 
 #PARA BUSCAR JUEGOS
