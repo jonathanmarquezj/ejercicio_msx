@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}MSX{% endblock %}
 {% block contenido %}
+{% if estado == "juegos" %}
   <div class="l-row l-spaced-horizontal l-spaced-top">
     <!-- ENTRADAS RECIENTES -->
     <div class="l-box l-col-md-12 l-spaced-bottom">
@@ -11,7 +12,8 @@
         <h2>JUEGOS MSX</h2>
         <div class="l-box-body l-spaced">
           <!-- FORMULARIO -->
-          <form class="form-horizontal" method="POST" action="/listajuegos">
+          <form class="form-horizontal" method="POST" action="/juegos">
+            <input type="hidden" name="estado" id="estado" value="lista_juegos" />
             {% if detalle %}
               <a href="/juegos" class="btn btn-dark">Buscar juego</a>
               <br/><br/>
@@ -43,4 +45,54 @@
     </div>
     <!-- FIN ENTRADAS RECIENTES -->
   </div>
+
+
+{% else %}
+
+
+  <div class="l-row l-spaced-horizontal l-spaced-top">
+  <div class="l-box l-col-md-12 l-spaced-bottom">
+    <div class="l-box-header">
+      <h2 class="l-box-title"><span>Lista</span></h2>
+    </div>
+    <div class="l-box-body l-spaced">
+      <h2>JUEGOS MSX: {{ juego }}</h2>
+      <div class="l-box-body l-spaced">
+        <!-- FORMULARIO -->
+        <form class="form-horizontal" method="POST" action="/juegos">
+          <a href="/juegos" class="btn btn-dark">Atas</a>
+          <!-- CONTENIDO TABLA -->
+          <table id="dataTableIdVerticalScroll" cellspacing="0" width="100%" class="display">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Desarrollador</th>
+                <th>Info</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Nombre</th>
+                <th>Desarrollador</th>
+                <th>Info</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              {% for elem in lista_juegos -%}
+                <tr>
+                  <td>{{ elem['nombre'] }}</td>
+                  <td>{{ elem['desarrollador'] }}</td>
+                  <td><a class="btn btn-info" href="/juegos/{{ elem['id'] }}">Detalles</a></td>
+                </tr>
+              {% endfor -%}
+            </tbody>
+          </table>
+          <!-- FIN CONTENIDO TABLA -->
+        </form>
+        <!-- FIN FORMULARIO -->
+      </div>
+    </div>
+  </div>
+</div>
+{% endif -%}
 {% endblock %}

@@ -22,24 +22,23 @@ def inicio():
 @app.route('/juegos', methods=["GET", "POST"])
 @app.route('/juegos/<detalle>', methods=["GET", "POST"])
 def juegos(detalle=None):
-	if detalle:
-		detalle=[obj for obj in lista_juegos_msx if(obj['id'] == int(detalle))]
-		if not detalle:
-			abort(404)
-	return render_template("juegos.html", detalle=detalle)
-
-
-#PARA LISTAR LOS JUEGOS ENCONTADOS
-@app.route('/listajuegos', methods=["GET", "POST"])
-def listajuegos():
+	#PARA PASAR DE UNA PAGINA A OTRA
+	estado="juegos"
 	if request.method == "POST":
+		estado=request.form['estado']
+	if estado == "juegos":
+		if detalle:
+			detalle=[obj for obj in lista_juegos_msx if(obj['id'] == int(detalle))]
+			if not detalle:
+				abort(404)
+		return render_template("juegos.html", detalle=detalle, estado=estado)
+	else:
 		juego=request.form['juego'] #Para guardar la busqueda en una variable
 		#Realiza la busqueda en el listado de los juegos.
 		busqueda=[obj for obj in lista_juegos_msx if(str(obj['nombre']).find(juego) == 0)]
 
-		return render_template("listajuegos.html", juego=juego, lista_juegos=busqueda)
-	else:
-		return render_template("listajuegos.html", juego="todo", lista_juegos=lista_juegos_msx)
+		return render_template("juegos.html", juego=juego, lista_juegos=busqueda, estado="lista_juegos")
+
 
 
 # Tienes que crear esta variable si no la tienes, en heroku no hace falta.
