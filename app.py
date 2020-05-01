@@ -25,22 +25,37 @@ def juegos(detalle=None):
 	#PARA PASAR DE UNA PAGINA A OTRA
 	estado="juegos"
 	buscar=""
+	categoria_select=""
 	if request.method == "POST":
 		estado=request.form['estado']
 		buscar=request.form['buscador']
+		categoria_select=request.form['categoria']
 
 	if estado == "juegos":
+		categoria=[]
+		for i in lista_juegos_msx:
+			if i['categoria'] not in categoria:
+				categoria.append(i['categoria'])
+
 		if detalle:
 			detalle=[obj for obj in lista_juegos_msx if(obj['id'] == int(detalle))]
 			if not detalle:
 				abort(404)
-		return render_template("juegos.html", detalle=detalle, estado=estado, buscar=buscar)
+
+		return render_template("juegos.html", detalle=detalle, estado=estado, buscar=buscar, categoria=categoria, categoria_select=categoria_select)
 	else:
 		juego=request.form['juego'] #Para guardar la busqueda en una variable
-		#Realiza la busqueda en el listado de los juegos.
-		busqueda=[obj for obj in lista_juegos_msx if(str(obj['nombre']).find(juego) == 0)]
+		categoria=request.form['categoria']
+		if categoria != "":
+			#Realiza la busqueda en el listado de los juegos.
+			busqueda=[obj for obj in lista_juegos_msx if(str(obj['nombre']).find(juego) == 0 and str(obj['categoria']) == categoria)]
+		else:
+			#Realiza la busqueda en el listado de los juegos con categoria
+			busqueda=[obj for obj in lista_juegos_msx if(str(obj['nombre']).find(juego) == 0)]
+		
+		
 
-		return render_template("juegos.html", juego=juego, lista_juegos=busqueda, estado="lista_juegos")
+		return render_template("juegos.html", juego=juego, lista_juegos=busqueda, estado="lista_juegos", categoria_select=categoria_select)
 
 
 
